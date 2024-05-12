@@ -39,7 +39,8 @@ The classification report for the testing data reveals similar trends to the tra
 ### Classification of New Data: 
 To validate the model, two random states not previously used in training were selected, and the Multi-layer Perceptron classifier was employed to predict bridge conditions in the new dataset. The model's performance remained commendable, with slight variations compared to the training and testing data. Notably, there was an improvement in recall scores for bridges categorized as "Poor."
 
-![TX_AZ_classification_report](https://github.com/slromero/Project4/assets/150491559/5f45b39c-9ae4-4ef1-b68f-933f7e6b9f03)
+<img width="511" alt="TX_AZ_classification_report" src="https://github.com/slromero/Project4/assets/150491559/45bc5217-64f0-419a-ba73-4af1d1cb55e0">
+
 
 
 ## Conclusion: 
