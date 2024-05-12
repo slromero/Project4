@@ -46,8 +46,9 @@ In conclusion, the model exhibits strong predictive capabilities across differen
 #### Assessment of 2007 Bridge Accident: 
 The model successfully predicted a poor condition for the bridge involved in the 2007 I-35W Saint Anthony Falls Bridge collapse. This underscores the accuracy and significance of having a robust model in predicting bridge conditions, emphasizing its critical role in ensuring public safety.
 
+![Bridge_9340_prediction](https://github.com/slromero/Project4/assets/150491559/516e1917-f7e0-4ee8-a516-20a03d15dddd)
 
-![Bridge_9340_prediction](https://github.com/slromero/Project4/assets/150491559/a11bfbfa-5f23-40d5-b399-9b4885aef33e)
+
 
 
 
