@@ -52,7 +52,9 @@ The model successfully predicted a poor condition for the bridge involved in the
 <img width="457" alt="Bridge_9340_prediction" src="https://github.com/slromero/Project4/assets/150491559/3dc0743c-3ad9-48cc-a278-0879e42d72ba">
 
 
-
+# Reference
+Data Source: Bureau Of Transportation Statistics
+https://geodata.bts.gov/datasets/national-bridge-inventory/explore?location=2.461768%2C-13.432209%2C0.98
 
 
 
