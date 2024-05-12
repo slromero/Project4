@@ -16,12 +16,13 @@ Different models were employed to assess the data, including Logistic Regression
 Training Data: The model showcased robust performance across all classes, achieving high precision, recall, and F1-score metrics. Particularly noteworthy was the model's ability to accurately identify bridges in "Good" condition, yielding the highest precision and recall scores. However, performance for bridges categorized as "Poor" was relatively lower, with decreased precision and recall scores. The overall accuracy achieved was 84%.
 Testing Data: Similar trends were observed in the classification report for the testing data, with the model maintaining high precision, recall, and F1-score metrics, particularly for "Good" and "Fair" bridge conditions. The total accuracy remained at 84%.
 
-![LogisticRegression_classification_report](https://github.com/slromero/Project4/assets/150491559/56a167bd-1121-47a7-8dea-5de011502a8e)
+<img width="311" alt="LogisticRegression_classification_report" src="https://github.com/slromero/Project4/assets/150491559/4ad858fd-96b0-4404-8b2b-a8e9d05f5913">
+
 
 #### CatBoostClassifier: 
 The CatBoostClassifier exhibited slightly lower accuracy compared to the Logistic Regression model, achieving a total accuracy of 83%.
 
-![CatBoostClassifier_classification_report](https://github.com/slromero/Project4/assets/150491559/306078cd-3591-49e1-a313-e100aa1e2681)
+<img width="295" alt="CatBoostClassifier_classification_report" src="https://github.com/slromero/Project4/assets/150491559/aacd3fbe-bdad-44e7-a29a-f26a27f3a28b">
 
 
 #### Multi-layer Perceptron classifier: 
@@ -31,7 +32,8 @@ For the training data, the model demonstrates robust performance across all clas
 Testing Data:
 The classification report for the testing data reveals similar trends to the training data. The model maintains high precision, recall, and F1-score metrics across different bridge conditions. However, there's a slight decrease in performance compared to the training data, which is expected when evaluating model performance on unseen data.
 
-![MLP_classification_report](https://github.com/slromero/Project4/assets/150491559/eea86cd7-6fe4-4995-8813-129d616df92f)
+<img width="302" alt="MLP_classification_report" src="https://github.com/slromero/Project4/assets/150491559/b51f47dd-2757-4122-aae5-9b58ba73a99d">
+
 
 
 ### Classification of New Data: 
