@@ -1,11 +1,12 @@
-# Project4
+# Bridge Safety
 Project 4: Marco, Wes, Sowmya, Mary, Sharon
 
 
 Presentation Link 
-<https://docs.google.com/presentation/d/1eO_FN8d4ZQWQKt_0WELsXPcMgEBmd1EbFf8OB8AyI78/>
+<https://docs.google.com/presentation/d/1eO_FN8d4ZQWQKt_0WELsXPcMgEBmd1EbFf8OB8AyI78/> 
 
-
+### Introduction: 
+There is a public interest in the safety of bridges in the United States. A lot of painstaking work has been done, by professionals in the field, to capture the raw data on the status of our bridges. Our team applied machine learning algorithms to the data, with the goal of training a model that can be used to classify on an ongoing basis the status of each bridge, based on a combination of bridge features. A successful model would provide additional insight toward understanding more quickly or more easily which bridge features are the most important to consider. With finite funding and resources available each year, decision makers could use this information to set priorities on where to put their efforts first to keep us safe.  
 
 ### Data Preparation: 
 The data underwent preprocessing to ensure readiness for modeling. Initially, key features were manually selected to include the most important and relevant ones for modeling purposes. Categorical data were then analyzed and transformed to have fewer than 10 variables, employing a binning approach. Year dates were converted into numerical values relative to the current year, and NaN values were subsequently removed. The finalized dataset was exported as a CSV file named 'bridge_testing_dataset.csv'.
@@ -52,6 +53,8 @@ The model successfully predicted a poor condition for the bridge involved in the
 
 <img width="457" alt="Bridge_9340_prediction" src="https://github.com/slromero/Project4/assets/150491559/3dc0743c-3ad9-48cc-a278-0879e42d72ba">
 
+#### Database: 
+The officially reported data we reviewed was captured in a database, to facilitate further analysis by stakeholders. who would be interested to review the progress on improving the status of bridges in the U.S. over time.
 
 # Reference
 Data Source: Bureau Of Transportation Statistics
