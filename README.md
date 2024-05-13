@@ -54,7 +54,7 @@ The model successfully predicted a poor condition for the bridge involved in the
 <img width="457" alt="Bridge_9340_prediction" src="https://github.com/slromero/Project4/assets/150491559/3dc0743c-3ad9-48cc-a278-0879e42d72ba">
 
 #### Database: 
-The officially reported data we reviewed was captured in a database, to facilitate further analysis by stakeholders. who would be interested to review the progress on improving the status of bridges in the U.S. over time.
+The officially reported data we reviewed was captured in a database to facilitate further analysis by stakeholders. The database would provide further opportunities for understanding the information, to see trends that are not apparent from looking at a single year at a time.
 
 # Reference
 Data Source: Bureau Of Transportation Statistics
