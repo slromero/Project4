@@ -7486,11 +7486,9 @@ a.anchor-link {
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Initial imports</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="c1">#regex library has functionality beyond the built-in Python module re</span>
+<span class="kn">import</span> <span class="nn">regex</span> <span class="k">as</span> <span class="nn">re</span>
 </pre></div>
 </div>
 </div>
@@ -7503,7 +7501,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Loading and Preprocessing Loans Encoded Data</p>
+<h2 id="Loading-and-Preprocessing-Loans-Encoded-Data">Loading and Preprocessing Loans Encoded Data<a class="anchor-link" href="#Loading-and-Preprocessing-Loans-Encoded-Data">¶</a></h2>
 </div>
 </div>
 </div>
@@ -7700,7 +7698,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d5c01be9-7707-43f5-9a25-383be9245376">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d5c01be9-7707-43f5-9a25-383be9245376">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7708,371 +7706,72 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># create clean file for SQL import (headings UPPER/lower)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># create copy to clean file for SQL import</span>
 <span class="n">bridge_data_clean</span> <span class="o">=</span> <span class="n">bridge_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">bridge_data_clean_lower</span> <span class="o">=</span> <span class="n">bridge_data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="c1"># default case (UPPER)</span>
-<span class="n">bridge_data_clean</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>OBJECTID</th>
-<th>STATE_CODE_001</th>
-<th>STRUCTURE_NUMBER_008</th>
-<th>RECORD_TYPE_005A</th>
-<th>ROUTE_PREFIX_005B</th>
-<th>SERVICE_LEVEL_005C</th>
-<th>ROUTE_NUMBER_005D</th>
-<th>DIRECTION_005E</th>
-<th>HIGHWAY_DISTRICT_002</th>
-<th>COUNTY_CODE_003</th>
-<th>...</th>
-<th>SUBMITTED_BY</th>
-<th>BRIDGE_CONDITION</th>
-<th>LOWEST_RATING</th>
-<th>DECK_AREA</th>
-<th>STATUS</th>
-<th>DATE</th>
-<th>LATDD</th>
-<th>LONGDD</th>
-<th>x</th>
-<th>y</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>1</td>
-<td>1</td>
-<td>00000000000S702</td>
-<td>1</td>
-<td>6</td>
-<td>1</td>
-<td>04007</td>
-<td>0</td>
-<td>09</td>
-<td>53</td>
-<td>...</td>
-<td>62</td>
-<td>F</td>
-<td>5</td>
-<td>145.50</td>
-<td>ST</td>
-<td>723</td>
-<td>31.103039</td>
-<td>-87.570411</td>
-<td>-87.570411</td>
-<td>31.103039</td>
-</tr>
-<tr>
-<th>1</th>
-<td>2</td>
-<td>1</td>
-<td>00000000000S703</td>
-<td>1</td>
-<td>6</td>
-<td>1</td>
-<td>04003</td>
-<td>0</td>
-<td>09</td>
-<td>53</td>
-<td>...</td>
-<td>62</td>
-<td>F</td>
-<td>6</td>
-<td>133.28</td>
-<td>ST</td>
-<td>723</td>
-<td>31.105611</td>
-<td>-87.569139</td>
-<td>-87.569139</td>
-<td>31.105611</td>
-</tr>
-<tr>
-<th>2</th>
-<td>3</td>
-<td>1</td>
-<td>0000000000M0022</td>
-<td>1</td>
-<td>8</td>
-<td>1</td>
-<td>00000</td>
-<td>0</td>
-<td>00</td>
-<td>113</td>
-<td>...</td>
-<td>74</td>
-<td>F</td>
-<td>5</td>
-<td>387.00</td>
-<td>ST</td>
-<td>723</td>
-<td>32.295361</td>
-<td>-84.977219</td>
-<td>-84.977219</td>
-<td>32.295361</td>
-</tr>
-<tr>
-<th>3</th>
-<td>4</td>
-<td>1</td>
-<td>000000883039900</td>
-<td>1</td>
-<td>4</td>
-<td>1</td>
-<td>00088</td>
-<td>0</td>
-<td>02</td>
-<td>59</td>
-<td>...</td>
-<td>67</td>
-<td>G</td>
-<td>7</td>
-<td>687.75</td>
-<td>AM</td>
-<td>1202</td>
-<td>34.454228</td>
-<td>-87.975517</td>
-<td>-87.975517</td>
-<td>34.454228</td>
-</tr>
-<tr>
-<th>4</th>
-<td>5</td>
-<td>1</td>
-<td>000001014002450</td>
-<td>1</td>
-<td>3</td>
-<td>1</td>
-<td>00101</td>
-<td>0</td>
-<td>02</td>
-<td>79</td>
-<td>...</td>
-<td>67</td>
-<td>F</td>
-<td>5</td>
-<td>15453.36</td>
-<td>MM</td>
-<td>403</td>
-<td>34.813317</td>
-<td>-87.382372</td>
-<td>-87.382372</td>
-<td>34.813317</td>
-</tr>
-<tr>
-<th>...</th>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr>
-<th>621576</th>
-<td>621577</td>
-<td>78</td>
-<td>STX7310</td>
-<td>1</td>
-<td>4</td>
-<td>1</td>
-<td>00000</td>
-<td>0</td>
-<td>00</td>
-<td>10</td>
-<td>...</td>
-<td>78</td>
-<td>F</td>
-<td>6</td>
-<td>499.59</td>
-<td>ST</td>
-<td>723</td>
-<td>17.751406</td>
-<td>-64.787792</td>
-<td>-64.787792</td>
-<td>17.751406</td>
-</tr>
-<tr>
-<th>621577</th>
-<td>621578</td>
-<td>78</td>
-<td>STX73205</td>
-<td>1</td>
-<td>4</td>
-<td>1</td>
-<td>00000</td>
-<td>0</td>
-<td>00</td>
-<td>10</td>
-<td>...</td>
-<td>78</td>
-<td>F</td>
-<td>6</td>
-<td>1183.38</td>
-<td>ST</td>
-<td>723</td>
-<td>17.753956</td>
-<td>-64.779389</td>
-<td>-64.779389</td>
-<td>17.753956</td>
-</tr>
-<tr>
-<th>621578</th>
-<td>621579</td>
-<td>78</td>
-<td>STX7520</td>
-<td>1</td>
-<td>4</td>
-<td>1</td>
-<td>00000</td>
-<td>0</td>
-<td>00</td>
-<td>10</td>
-<td>...</td>
-<td>78</td>
-<td>G</td>
-<td>7</td>
-<td>142.79</td>
-<td>ST</td>
-<td>723</td>
-<td>17.699436</td>
-<td>-64.756333</td>
-<td>-64.756333</td>
-<td>17.699436</td>
-</tr>
-<tr>
-<th>621579</th>
-<td>621580</td>
-<td>78</td>
-<td>STX8001</td>
-<td>1</td>
-<td>4</td>
-<td>1</td>
-<td>00000</td>
-<td>0</td>
-<td>00</td>
-<td>10</td>
-<td>...</td>
-<td>78</td>
-<td>F</td>
-<td>5</td>
-<td>60.72</td>
-<td>ST</td>
-<td>723</td>
-<td>17.758781</td>
-<td>-64.765072</td>
-<td>-64.765072</td>
-<td>17.758781</td>
-</tr>
-<tr>
-<th>621580</th>
-<td>621581</td>
-<td>78</td>
-<td>STX8205</td>
-<td>1</td>
-<td>4</td>
-<td>1</td>
-<td>00000</td>
-<td>0</td>
-<td>00</td>
-<td>10</td>
-<td>...</td>
-<td>78</td>
-<td>F</td>
-<td>5</td>
-<td>116.62</td>
-<td>ST</td>
-<td>723</td>
-<td>17.745164</td>
-<td>-64.686150</td>
-<td>-64.686150</td>
-<td>17.745164</td>
-</tr>
-</tbody>
-</table>
-<p>621581 rows × 130 columns</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=593876b5-810c-4fd6-918e-cafb88fe0043">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=593876b5-810c-4fd6-918e-cafb88fe0043">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># remove 'N' and 'n' values representing null values</span>
-<span class="c1"># bridge_data_clean['RAILINGS_036A'] = bridge_data['RAILINGS_036A'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['TRANSITIONS_036B'] = bridge_data['TRANSITIONS_036B'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['APPR_RAIL_036C'] = bridge_data['APPR_RAIL_036C'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['APPR_RAIL_END_036D'] = bridge_data['APPR_RAIL_END_036D'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['NAVIGATION_038'] = bridge_data['NAVIGATION_038'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['DECK_COND_058'] = bridge_data['DECK_COND_058'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['SUPERSTRUCTURE_COND_059'] = bridge_data['SUPERSTRUCTURE_COND_059'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['SUBSTRUCTURE_COND_060'] = bridge_data['SUBSTRUCTURE_COND_060'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['CHANNEL_COND_061'] = bridge_data['CHANNEL_COND_061'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['CULVERT_COND_062'] = bridge_data['CULVERT_COND_062'].replace('N','').replace('n','')</span>
-<span class="c1"># bridge_data_clean['STRUCTURAL_EVAL_067'] = bridge_data['STRUCTURAL_EVAL_067'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['DECK_GEOMETRY_EVAL_068'] = bridge_data['DECK_GEOMETRY_EVAL_068'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['UNDCLRENCE_EVAL_069'] = bridge_data['UNDCLRENCE_EVAL_069'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['WATERWAY_EVAL_071'] = bridge_data['WATERWAY_EVAL_071'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['DECK_STRUCTURE_TYPE_107'] = bridge_data['DECK_STRUCTURE_TYPE_107'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['SURFACE_TYPE_108A'] = bridge_data['SURFACE_TYPE_108A'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['MEMBRANE_TYPE_108B'] = bridge_data['MEMBRANE_TYPE_108B'].replace('n','').replace('N','')</span>
-<span class="c1"># bridge_data_clean['DECK_PROTECTION_108C'] = bridge_data['DECK_PROTECTION_108C'].replace('n','').replace('N','')</span>
-<span class="n">bridge_data_clean</span><span class="p">[</span><span class="s1">'YEAR_RECONSTRUCTED_106'</span><span class="p">]</span> <span class="o">=</span> <span class="n">bridge_data</span><span class="p">[</span><span class="s1">'YEAR_RECONSTRUCTED_106'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'N'</span><span class="p">,</span><span class="s1">''</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Define a function to replace non-values like 'N' or 'n' with an empty string using regex.fullmatch</span>
+<span class="k">def</span> <span class="nf">replace_with_null</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="sa">r</span><span class="s1">'[/*]'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">''</span>
+    <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="sa">r</span><span class="s1">'[Nn]'</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s1">''</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">value</span>
 
+<span class="c1"># List the dataset columns that have encoded non-values    </span>
+<span class="n">series_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'RAILINGS_036A'</span><span class="p">,</span><span class="s1">'TRANSITIONS_036B'</span><span class="p">,</span><span class="s1">'APPR_RAIL_036C'</span><span class="p">,</span><span class="s1">'APPR_RAIL_END_036D'</span><span class="p">,</span>
+               <span class="s1">'NAVIGATION_038'</span><span class="p">,</span><span class="s1">'DECK_COND_058'</span><span class="p">,</span><span class="s1">'SUPERSTRUCTURE_COND_059'</span><span class="p">,</span>
+               <span class="s1">'SUBSTRUCTURE_COND_060'</span><span class="p">,</span><span class="s1">'CHANNEL_COND_061'</span><span class="p">,</span><span class="s1">'CULVERT_COND_062'</span><span class="p">,</span>
+               <span class="s1">'STRUCTURAL_EVAL_067'</span><span class="p">,</span><span class="s1">'DECK_GEOMETRY_EVAL_068'</span><span class="p">,</span><span class="s1">'UNDCLRENCE_EVAL_069'</span><span class="p">,</span>
+               <span class="s1">'WATERWAY_EVAL_071'</span><span class="p">,</span><span class="s1">'DECK_STRUCTURE_TYPE_107'</span><span class="p">,</span><span class="s1">'SURFACE_TYPE_108A'</span><span class="p">,</span>
+               <span class="s1">'MEMBRANE_TYPE_108B'</span><span class="p">,</span> <span class="s1">'DECK_PROTECTION_108C'</span>
+              <span class="p">]</span>
 
-<span class="c1"># create version of df with columns in lowercase for SQL import</span>
-<span class="n">bridge_data_clean_lower</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bridge_data_clean</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bridge_data_clean_lower</span><span class="p">)</span>
+<span class="c1"># remove non-values from the dataset</span>
+<span class="n">bridge_data_clean</span><span class="p">[</span><span class="n">series_list</span><span class="p">]</span> <span class="o">=</span> <span class="n">bridge_data_clean</span><span class="p">[</span><span class="n">series_list</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">replace_with_null</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3e733cdc-8444-4084-96e5-b8428da0c294">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># export clean df</span>
+<span class="n">bridge_data_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"output_data/bridge_data_clean.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">','</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=161a4340-cf2d-42db-ae75-cd25680579c3">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># create version of df with columns in lowercase for SQL import</span>
+<span class="n">bridge_data_clean</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bridge_data_clean</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bridge_data_clean</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8085,72 +7784,14 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>        objectid  state_code_001 structure_number_008  record_type_005a  \
-0              1               1      00000000000S702                 1   
-1              2               1      00000000000S703                 1   
-2              3               1      0000000000M0022                 1   
-3              4               1      000000883039900                 1   
-4              5               1      000001014002450                 1   
-...          ...             ...                  ...               ...   
-621576    621577              78              STX7310                 1   
-621577    621578              78             STX73205                 1   
-621578    621579              78              STX7520                 1   
-621579    621580              78              STX8001                 1   
-621580    621581              78              STX8205                 1   
-
-        route_prefix_005b  service_level_005c route_number_005d  \
-0                       6                   1             04007   
-1                       6                   1             04003   
-2                       8                   1             00000   
-3                       4                   1             00088   
-4                       3                   1             00101   
-...                   ...                 ...               ...   
-621576                  4                   1             00000   
-621577                  4                   1             00000   
-621578                  4                   1             00000   
-621579                  4                   1             00000   
-621580                  4                   1             00000   
-
-        direction_005e highway_district_002  county_code_003  ...  \
-0                    0                   09               53  ...   
-1                    0                   09               53  ...   
-2                    0                   00              113  ...   
-3                    0                   02               59  ...   
-4                    0                   02               79  ...   
-...                ...                  ...              ...  ...   
-621576               0                   00               10  ...   
-621577               0                   00               10  ...   
-621578               0                   00               10  ...   
-621579               0                   00               10  ...   
-621580               0                   00               10  ...   
-
-        submitted_by bridge_condition  lowest_rating deck_area status  date  \
-0                 62                F              5    145.50     ST   723   
-1                 62                F              6    133.28     ST   723   
-2                 74                F              5    387.00     ST   723   
-3                 67                G              7    687.75     AM  1202   
-4                 67                F              5  15453.36     MM   403   
-...              ...              ...            ...       ...    ...   ...   
-621576            78                F              6    499.59     ST   723   
-621577            78                F              6   1183.38     ST   723   
-621578            78                G              7    142.79     ST   723   
-621579            78                F              5     60.72     ST   723   
-621580            78                F              5    116.62     ST   723   
-
-            latdd     longdd          x          y  
-0       31.103039 -87.570411 -87.570411  31.103039  
-1       31.105611 -87.569139 -87.569139  31.105611  
-2       32.295361 -84.977219 -84.977219  32.295361  
-3       34.454228 -87.975517 -87.975517  34.454228  
-4       34.813317 -87.382372 -87.382372  34.813317  
-...           ...        ...        ...        ...  
-621576  17.751406 -64.787792 -64.787792  17.751406  
-621577  17.753956 -64.779389 -64.779389  17.753956  
-621578  17.699436 -64.756333 -64.756333  17.699436  
-621579  17.758781 -64.765072 -64.765072  17.758781  
-621580  17.745164 -64.686150 -64.686150  17.745164  
-
-[621581 rows x 130 columns]
+<pre>Index(['objectid', 'state_code_001', 'structure_number_008',
+       'record_type_005a', 'route_prefix_005b', 'service_level_005c',
+       'route_number_005d', 'direction_005e', 'highway_district_002',
+       'county_code_003',
+       ...
+       'submitted_by', 'bridge_condition', 'lowest_rating', 'deck_area',
+       'status', 'date', 'latdd', 'longdd', 'x', 'y'],
+      dtype='object', length=130)
 </pre>
 </div>
 </div>
@@ -8161,12 +7802,11 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># export clean df in desired case</span>
-<span class="n">bridge_data_clean_lower</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"output_data/bridge_data_clean_lower.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">','</span><span class="p">)</span>
-<span class="c1">#bridge_data_clean.to_csv("output_data/bridge_data_clean.csv", index=False, lineterminator=None)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># export clean df</span>
+<span class="n">bridge_data_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"output_data/bridge_data_clean.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lineterminator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">','</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8177,7 +7817,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">bridge_data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -8203,7 +7843,7 @@ memory usage: 616.5+ MB
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -8452,10 +8092,10 @@ memory usage: 616.5+ MB
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">bridge_data_clean_lower</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">bridge_data_clean</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -8479,10 +8119,10 @@ memory usage: 616.5+ MB
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">bridge_data_clean_lower</span><span class="p">[</span><span class="s1">'year_reconstructed_106'</span><span class="p">])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">bridge_data_clean</span><span class="p">[</span><span class="s1">'year_reconstructed_106'</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -8513,6 +8153,20 @@ Name: year_reconstructed_106, Length: 621581, dtype: float64
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=dbc2dbbf-3b9b-4469-9c80-fe47510221f4">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8f7c0b2d-16ac-4b45-8e56-2490fe081a86">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
